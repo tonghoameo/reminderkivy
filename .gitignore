@@ -1,5 +1,5 @@
-.buildozer/
+.buildozer/**
 
 *.tar.xz
 
-bin/
+bin/**
