@@ -1,0 +1,17 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+kivy = "*"
+ffpyplayer = "*"
+kivy-ios = "*"
+buildozer = "*"
+cython = "*"
+python-for-android = "*"
+
+[requires]
+python_version = "3.8"

@@ -1,0 +1,58 @@
+from kivy.app import App
+from time import strftime
+from kivy.clock import Clock
+from kivy.core.audio import SoundLoader
+
+class StopWatchApp(App):
+    #sw_s = int(self.root.ids.total.text)
+    sw_s =  0
+    sw_Istarted = False
+    sound = SoundLoader.load('huuda.wav')
+    def updateTime(self, nap):
+        if self.sw_Istarted:
+            self.sw_s -= nap
+        hours, minutes = divmod(self.sw_s, 3600)
+        minutes, seconds = divmod(minutes, 60)
+        part_s = seconds* 100%100
+        if self.sw_s < 0 :
+            if self.sound :
+                self.sound.play()
+            self.start_stop()
+        self.root.ids.stopwatch.text = f'{int(hours)}:{int(minutes):02}:{int(seconds):02}:{int(part_s):02}'
+        self.root.ids.time.text = strftime('[b]%H[/b]:%M:%S')
+    
+    def on_start(self):
+        print('start')
+        Clock.schedule_interval(self.updateTime, 0)
+    
+    def start_stop(self):
+        try:
+            H = int(self.root.ids.total_H.text)*3600 
+        except:
+            H = 0
+        try:
+            M = int(self.root.ids.total_M.text)*60 
+        except:
+            M = 0
+        try:
+            S = int(self.root.ids.total_S.text)
+        except:
+            S  = 0
+
+
+        total = H + M + S
+        self.sw_s = total
+        self.root.ids.start_stop.text = 'Start' if self.sw_Istarted else 'Stop'
+        self.sw_Istarted = not self.sw_Istarted
+    
+    
+    def reset(self):
+        if self.sw_Istarted:
+            self.root.ids.start_stop.text = 'Start'
+            self.sw_Istarted = False
+        self.sw_s = 0
+        self.sound.stop()
+        
+if __name__ == '__main__':
+    StopWatchApp().run()
+

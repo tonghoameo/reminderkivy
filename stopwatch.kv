@@ -1,0 +1,55 @@
+BoxLayout:
+    orientation: 'vertical'
+    Label:
+        id : time
+        text:'[b]00[/b]:00:00'
+        font_size: 60
+        markup: True
+    BoxLayout:
+        orientation: 'horizontal'
+        TextInput:
+            id :total_H
+            text:'0'
+            font_size: 90
+            halign:'center'
+            padding_y: [self.height / 2.0 - (self.line_height / 2.0) * len(self._lines), 0]
+        TextInput:
+            id :total_M
+            text:'0'    
+            font_size: 90
+            halign:'center'
+            padding_y: [self.height / 2.0 - (self.line_height / 2.0) * len(self._lines), 0]
+        TextInput:
+            id :total_S
+            text:'0'
+            font_size: 90
+            halign:'center'
+            padding_y: [self.height / 2.0 - (self.line_height / 2.0) * len(self._lines), 0]
+    BoxLayout:
+        orientation: 'horizontal'
+        padding: 20
+        spacing: 20
+        height : 90
+        size_hint : (1, None)
+        
+        Button:
+            text: 'Start'
+            id: start_stop
+            font_size: 25
+            bold: True
+            background_normal: 'front.jpg'
+#            background_down:'gr.png'
+            border: (2,2,2,2)
+            on_press: app.start_stop()
+        Button:
+            text: 'Reset'
+            id: reset
+            font_size: 25
+            bold: True
+
+            on_press: app.reset()
+    Label:
+        id : stopwatch
+        text: '00:00:00[size=40]00[/size]'               
+        font_size: 60
+        markup: True
