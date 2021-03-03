@@ -85,7 +85,7 @@ fullscreen = 0
 #android.presplash_color = #FFFFFF
 
 # (list) Permissions
-android.permissions = INTERNET,CAPTURE_AUDIO_OUTPUT
+android.permissions = INTERNET,CAPTURE_AUDIO_OUTPUT,WAKE_LOCK
 
 # (int) Target Android API, should be as high as possible.
 #android.api = 27

@@ -1,10 +1,13 @@
 from kivy.app import App
+from jnius import autoclass
 from  time import strftime
 from kivy.clock import Clock
-from kivy.core.audio import SoundLoader
+from kivy.core.audio import SoundLoader,Sound
 import os
 os.environ['KIVY_AUDIO'] = 'sdl2'
-
+MediaPlayer = autoclass("android.media.MediaPlayer")
+FileInputStream = autoclass("java.io.FileInputStream")
+AudioManager = autoclass("android.media.AudioManager")
 #from android.permissions import request_permissions, Permission
 
 #request_permissions([Permission.INTERNET, permissions.CAPTURE_AUDIO_OUTPUT])
@@ -12,17 +15,24 @@ class StopWatchApp(App):
     #sw_s = int(self.root.ids.total.text)
     sw_s =  0
     sw_Istarted = False
-    pathfile  = os.getcwd()+'/huuda.wav'
+    #pathfile  = os.getcwd()+'/huuda.wav'
+    pathfile  =  './assets/huuda.wav'
     print(pathfile)
     sound = SoundLoader.load(pathfile)
     sound.loop = True
+    mediaplayer = MediaPlayer()
+    mediaplayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+    mediaplayer.setDataSource(pathfile)
+    mediaplayer.prepare()
     #sound = SoundLoader.load('MTP.mp3')
     def updateTime(self, nap):
         if self.sw_Istarted:
             self.sw_s -= nap
         if self.sw_s < 0 :
+            self.root.ids.stopwatch.text = self.mediaplayer
             if self.sound :
-                self.sound.play()
+                #self.sound.play()
+                self.mediaplayer.start()
                 self.sw_s = 0
                 
         hours, minutes = divmod(self.sw_s, 3600)

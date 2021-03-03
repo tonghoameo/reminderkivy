@@ -12,6 +12,7 @@ kivy-ios = "*"
 buildozer = "*"
 cython = "*"
 python-for-android = "*"
+pyjnius = "*"
 
 [requires]
 python_version = "3.8"
